@@ -10,6 +10,7 @@ const corsOptions = {
     if (!origin) return callback(null, true);
     
     const allowedOrigins = [
+      'https://military-management-chi.vercel.app',
       'http://localhost:5173',
       'http://localhost:5174', 
       'http://localhost:5175',
@@ -17,7 +18,7 @@ const corsOptions = {
       process.env.CLIENT_URL, 
       process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : null, 
       // 'https://military-management-frontend.vercel.app',
-      'https://military-management-chi.vercel.app'
+    
     ].filter(Boolean);
     
     if (allowedOrigins.indexOf(origin) !== -1) {
