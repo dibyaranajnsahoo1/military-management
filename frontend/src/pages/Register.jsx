@@ -1,16 +1,16 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import '../styles/Register.css';
-import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { authService } from '../services/api';
 
 const Register = () => {
   const navigate = useNavigate();
-  const [isLoading, setIsLoading]= useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
+    rank: '', // ✅ Added rank
     email: '',
     role: '',
     department: '',
@@ -27,7 +27,6 @@ const Register = () => {
       ...prev,
       [name]: value
     }));
-    // Clear error when user starts typing
     if (errors[name]) {
       setErrors(prev => ({
         ...prev,
@@ -38,39 +37,25 @@ const Register = () => {
 
   const validateForm = () => {
     const newErrors = {};
-    
-    if (!formData.firstName.trim()) {
-      newErrors.firstName = 'First name is required';
-    }
-    
-    if (!formData.lastName.trim()) {
-      newErrors.lastName = 'Last name is required';
-    }
-    
+
+    if (!formData.firstName.trim()) newErrors.firstName = 'First name is required';
+    if (!formData.lastName.trim()) newErrors.lastName = 'Last name is required';
+    if (!formData.rank.trim()) newErrors.rank = 'Rank is required'; // ✅ Added validation
     if (!formData.email.trim()) {
       newErrors.email = 'Email is required';
     } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
       newErrors.email = 'Email is invalid';
     }
-    
-    if (!formData.role.trim()) {
-      newErrors.role = 'Role is required';
-    }
-    
-    if (!formData.department.trim()) {
-      newErrors.department = 'Department is required';
-    }
-    
-    if (!formData.base.trim()) {
-      newErrors.base = 'Base is required';
-    }
-    
+    if (!formData.role.trim()) newErrors.role = 'Role is required';
+    if (!formData.department.trim()) newErrors.department = 'Department is required';
+    if (!formData.base.trim()) newErrors.base = 'Base is required';
+
     if (!formData.password) {
       newErrors.password = 'Password is required';
     } else if (formData.password.length < 8) {
       newErrors.password = 'Password must be at least 8 characters';
     }
-    
+
     if (formData.password !== formData.confirmPassword) {
       newErrors.confirmPassword = 'Passwords do not match';
     }
@@ -83,13 +68,9 @@ const Register = () => {
     e.preventDefault();
     if (validateForm()) {
       setIsLoading(true);
-      
       try {
         await authService.register(formData);
-        
-        // Don't store token/user data after registration
-        // Instead, just show success message and redirect to login
-        toast.success('Registration successful! Please login with your credentials.');
+        toast.success('Registration successful! Please login.');
         navigate('/login');
       } catch (error) {
         const errorMessage = error.response?.data?.message || 'Registration failed. Please try again.';
@@ -99,14 +80,13 @@ const Register = () => {
       }
     }
   };
-  
 
   return (
     <div className="register-container">
       <div className="register-box">
         <h1>Military Management System</h1>
         <h2>Create Account</h2>
-        
+
         <form onSubmit={handleSubmit}>
           <div className="form-row">
             <div className="form-group">
@@ -135,6 +115,29 @@ const Register = () => {
               {errors.lastName && <span className="error-message">{errors.lastName}</span>}
             </div>
           </div>
+
+          {/* ✅ New Rank Field */}
+          <div className="form-group">
+  <label htmlFor="rank">Rank</label>
+  <select
+    id="rank"
+    name="rank"
+    value={formData.rank}
+    onChange={handleChange}
+    className={errors.rank ? 'error' : ''}
+  >
+    <option value="">Select Rank</option>
+    <option value="Private">Private</option>
+    <option value="Corporal">Corporal</option>
+    <option value="Sergeant">Sergeant</option>
+    <option value="Lieutenant">Lieutenant</option>
+    <option value="Captain">Captain</option>
+    <option value="Major">Major</option>
+    <option value="Colonel">Colonel</option>
+    <option value="General">General</option>
+  </select>
+  {errors.rank && <span className="error-message">{errors.rank}</span>}
+</div>
 
           <div className="form-group">
             <label htmlFor="email">Email</label>
@@ -235,7 +238,6 @@ const Register = () => {
 
           <button type="submit" className="register-button" disabled={isLoading}>
             {isLoading ? 'Creating Account...' : 'Create Account'}
-            Create Account
           </button>
         </form>
 
@@ -247,4 +249,4 @@ const Register = () => {
   );
 };
 
-export default Register; 
+export default Register;
