@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'https://military-management-nyce.vercel.app/api';
-// const API_BASE_URL = 'https://military-management-vrog-qz4zyk9q3-dibyaranajnsahoo1s-projects.vercel.app/api';
+// const API_BASE_URL = import.meta.env.VITE_API_URL || 'https://military-management-nyce.vercel.app/api';
+const API_BASE_URL = 'https://military-management-2vl0.onrender.com/api';
 
 
 const api = axios.create({
