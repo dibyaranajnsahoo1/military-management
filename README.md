@@ -63,7 +63,7 @@ military_management/
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/Xkirit/Military_Management.git
+   git clone https://github.com/dibyaranajnsahoo1/military-management
    cd Military_Management
    ```
 
@@ -79,32 +79,7 @@ military_management/
    npm install
    ```
 
-4. **Database Setup**
-   - Create a MySQL database
-   - Import the database schema (if provided)
-   - Update database configuration in `backend/config/`
 
-5. **Environment Configuration**
-   - Copy `.env.example` to `.env` in both frontend and backend directories
-   - Update the environment variables with your configuration
-
-6. **Start the Development Servers**
-   
-   **Backend** (Terminal 1):
-   ```bash
-   cd backend
-   npm start
-   ```
-   
-   **Frontend** (Terminal 2):
-   ```bash
-   cd frontend
-   npm start
-   ```
-
-7. **Access the Application**
-   - Frontend: http://localhost:3000
-   - Backend API: http://localhost:5002
 
 ## 🎨 Design System
 
@@ -176,7 +151,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 👥 Authors
 
-- **Kirit** - *Initial work* - [Xkirit](https://github.com/Xkirit)
 
 ## 🙏 Acknowledgments
 
@@ -184,10 +158,3 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - Node.js community for excellent backend tools
 - All contributors who helped improve this project
 
-## 📞 Support
-
-If you have any questions or need help, please open an issue on GitHub or contact the development team.
-
----
-
-**⭐ If you find this project helpful, please give it a star!** 
